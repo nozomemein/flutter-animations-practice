@@ -1,47 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animations/widgets/animated_logo.dart';
+import 'package:flutter_animations/widgets/logo.dart';
 
 void main() {
-  runApp(const LogoApp());
+  runApp(const AnimationPlaygroundApp());
 }
 
-class LogoApp extends StatefulWidget {
-  const LogoApp({super.key});
-
-  @override
-  State<LogoApp> createState() => _LogoAppState();
-}
-
-class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-    controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
-    animation = Tween<double>(begin: 0, end: 300).animate(controller)
-      ..addListener(() {
-        setState(() {}); // Flutter hooksのuseStateの更新ロジックと同じことをしている. Animationが変わるたびに、`_element!.markNeedsBuild();`が呼ばれる
-      });
-    controller.forward();
-  }
+class AnimationPlaygroundApp extends StatelessWidget {
+  const AnimationPlaygroundApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: animation.value,
-        width: animation.value,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: const FlutterLogo(),
-      ),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
+}
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const LogoApp(),
+    const AnimatedLogoApp(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Animation Playground'),
+      ),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Logo'),
+          BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
   }
 }
