@@ -17,7 +17,8 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
     controller =
         AnimationController(duration: const Duration(seconds: 2), vsync: this)
           ..addListener(() {
-            setState(() {}); // Flutter HooksのuseStateのリビルドロジックと同じことをしている. Listnerに_element!.markNeedsBuild()を呼び出すことで再描画を促す
+            setState(
+                () {}); // Flutter HooksのuseStateのリビルドロジックと同じことをしている. Listnerに_element!.markNeedsBuild()を呼び出すことで再描画を促す
           });
     animation = Tween<double>(begin: 0, end: 300).animate(controller);
     controller.forward();

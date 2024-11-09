@@ -41,9 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Logo'),
-          BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.animation), label: 'Tutorial'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.animation), label: 'AnimatedLogo'),
+          // BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
+          // BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
+          // BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
+          // BottomNavigationBarItem(icon: Icon(Icons.animation), label: 'Other'),
         ],
         onTap: (index) {
           setState(() {
